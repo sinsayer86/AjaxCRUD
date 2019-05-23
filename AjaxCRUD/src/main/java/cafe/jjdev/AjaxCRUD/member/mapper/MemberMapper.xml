@@ -1,0 +1,55 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cafe.jjdev.AjaxCRUD.member.mapper.MemberMapper">
+	<!-- 총 멤버 수 쿼리 -->
+	<select id="selectMemberCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM member
+	</select>
+
+	<!-- 멤버 목록 쿼리 -->
+	<select id="selectMemberList" resultType="cafe.jjdev.AjaxCRUD.member.vo.Member">
+		SELECT
+			id
+			, pw
+			, name
+			, age
+			, gender
+		FROM member
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 멤버 추가 쿼리 -->
+	<insert id="insertMember" parameterType="cafe.jjdev.AjaxCRUD.member.vo.Member">
+		INSERT INTO member(
+			id
+			, pw
+			, name
+			, age
+			, gender
+		)
+		VALUES(
+			#{id},
+			#{pw},
+			#{name},
+			#{age},
+			#{gender}
+		)
+	</insert>
+	
+	<!-- 멤버 삭제 쿼리 -->
+	<delete id="deleteMember" parameterType="cafe.jjdev.AjaxCRUD.member.vo.Member">
+		DELETE FROM member
+		WHERE id = #{id}
+	</delete>
+	
+	<!-- 멤버 수정 쿼리 -->
+	<update id="updateMember" parameterType="cafe.jjdev.AjaxCRUD.member.vo.Member">
+		UPDATE member SET
+			pw = #{pw}
+			, name = #{name}
+			, age = #{age}
+			, gender = #{gender}
+		WHERE id = #{id}
+	</update>
+</mapper>

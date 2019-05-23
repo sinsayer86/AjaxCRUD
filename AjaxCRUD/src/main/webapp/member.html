@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('#btnListFront').click(function(){
+				console.log('btnListFront click');
+		    	let currentPage = $('#currentPage').val();
+		    	currentPage--;
+		    	$('#currentPage').val(currentPage);
+		    	$('#btnList').trigger('click');
+			});
+			$('#btnListBack').click(function(){
+				console.log('btnListFront click');
+		    	let currentPage = $('#currentPage').val();
+		    	currentPage++;
+		    	$('#currentPage').val(currentPage);
+		    	$('#btnList').trigger('click');
+			});
+			
+		    // 멤버 목록
+		    $('#btnList').click(function(){
+		    	console.log('btnList click');
+		    	
+		    	let currentPage = $('#currentPage').val();
+		    	
+		    	$.post({
+		        	url : '/getMembers',
+		        	data : {'currentPage':currentPage},
+		        	success:function(data){ //설정하지 않으면 디폴트로 json 형태의 데이터가 return됨
+		        		console.log(data);
+		                $('#list').empty();
+		                $(data.list).each(function(index, item){
+		                    $('#list').append('<tr>');
+		                    $('#list').append('<td><input type="checkbox" class="ck" value="'+item.id+'"></td>');
+		                    $('#list').append('<td>'+item.id+'</td>');
+		                    $('#list').append('<td>'+item.pw+'</td>');
+		                    $('#list').append('<td>'+item.name+'</td>');
+		                    $('#list').append('<td>'+item.age+'</td>');
+		                    $('#list').append('<td>'+item.gender+'</td>');
+		                    $('#list').append('</tr>');
+		                });
+		                if(data.currentPage <= 1 && data.lastPage > 1){
+		                	$('#btnListFront').hide();
+		                	$('#btnListBack').show();
+		                }
+		                else if(data.currentPage > 1 && data.lastPage > data.currentPage){
+		                	$('#btnListFront').show();
+		                	$('#btnListBack').show();
+		                }
+		                else if(data.currentPage >= data.lastPage && data.lastPage > 1){
+		                	$('#btnListFront').show();
+		                	$('#btnListBack').hide();
+		                }
+		                else{
+		                	$('#btnListFront').hide();
+		                	$('#btnListBack').hide();
+		                }
+		            }
+		        });
+		    });
+		    
+		    // 멤버 추가
+		    $('#btnAdd').click(function(){
+		    	console.log('btnAdd click');
+		    	// 변수 선언
+		    	let id = null;
+		    	let pw = null;
+		    	let name = null;
+		    	let age = null;
+		    	let gender = null;
+		    	
+		    	// 유효성 검사 코드
+		    	if($('#id').val() != '' && $('#pw').val() != '' && $('#name').val() != '' && $('#age').val() != '' && $('#gender').val() != '') {
+		    		id = $('#id').val();
+		    		pw = $('#pw').val();
+		    		name = $('#name').val();
+		    		age = $('#age').val();
+		    		gender = $('#gender').val();
+		    	}
+		    	else {
+		    		alert('입력되지 않은 데이터가 있습니다.');
+		    	}
+		        
+		    	$.post({
+		        	url : '/addMember',
+		        	data:{'id':id, 'pw':pw, 'name':name, 'age':age, 'gender':gender},
+			    	success:function(){
+		                $('#btnList').trigger('click'); //성공 시 btnList버튼 대신 클릭
+		            }
+		        });
+		    });
+
+		    // 멤버 삭제
+		    $('#btnRemove').click(function(){
+		        console.log('btnRemove click');
+		        
+		        // 변수 선언 및 배열 생성
+		        let ck = new Array(); // let ck = [];
+		        $('.ck:checked').each(function(index, item){ //ck라는 아이디를 가진 태그 중 체크된 것만 가져온다.
+		            ck.push($(item).val());
+		        });
+		        
+		        $.post({
+		        	url : '/removeMember',
+		        	data:{ck:ck},
+			        success:function(){
+		                $('#btnList').trigger('click');
+		            }
+		        });
+		    });
+		    
+		    // 수정
+		    $('#btnModify').click(function(){
+		    	console.log('btnModify click');
+		    	
+		    	// 변수 선언
+		    	let id = null;
+		    	let pw = null;
+		    	let name = null;
+		    	let age = null;
+		    	let gender = null;
+		    	
+		    	// 유효성 검사 코드
+		    	if($('#id').val() != '' && $('#pw').val() != '' && $('#name').val() != '' && $('#age').val() != '' && $('#gender').val() != '') {
+		    		id = $('#id').val();
+		    		pw = $('#pw').val();
+		    		name = $('#name').val();
+		    		age = $('#age').val();
+		    		gender = $('#gender').val();
+		    	}
+		    	else {
+		    		alert('입력되지 않은 데이터가 있습니다.');
+		    	}
+		    	
+		    	$.post({
+		        	url : '/modifyMember',
+		        	data:{'id':id, 'pw':pw, 'name':name, 'age':age, 'gender':gender},
+		    		success:function(){
+		                $('#btnList').trigger('click'); //성공 시 btnList버튼 대신 클릭
+		            }
+		        });
+		    });
+		    
+		    $('#btnList').trigger('click');
+		});
+	</script>
+</head>
+<body>
+	<h1>Member</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>pw</th>
+                <th>name</th>
+                <th>age</th>
+                <th>gender</th>
+                <th>추가</th>
+                <th>수정</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" id="id"></td>
+                <td><input type="password" id="pw"></td>
+                <td><input type="text" id="name"></td>
+                <td><input type="text" id="age"></td>
+                <td>
+                    <select id="gender">
+                        <option value="Male">남</option>
+                        <option value="Female">여</option>
+                    </select>
+                </td>
+                <td><button type="button" id="btnAdd">add</button></td>
+                <td><button type="button" id="btnModify">modify</button></td>
+            </tr>
+        </tbody>
+    </table>
+ 
+    <button type="button" id="btnRemove">remove</button>
+    
+    <button type="button" id="btnList">회원리스트</button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th></th>
+                <th>id</th>
+                <th>pw</th>
+                <th>name</th>
+                <th>age</th>
+                <th>gender</th>
+            </tr>
+        </thead>
+        <tbody id="list">
+        </tbody>
+    </table>
+    
+    
+    <input id="currentPage" type="hidden" value="1">
+    <button type="button" id="btnListFront">이전</button>
+    <button type="button" id="btnListBack">다음</button>
+    
+</body>
+</html>
