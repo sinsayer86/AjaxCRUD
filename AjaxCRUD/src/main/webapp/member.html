@@ -5,27 +5,22 @@
 	<title>Insert title here</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script>
+		let currentPage = 1;
 		$(document).ready(function(){
 			$('#btnListFront').click(function(){
 				console.log('btnListFront click');
-		    	let currentPage = $('#currentPage').val();
 		    	currentPage--;
-		    	$('#currentPage').val(currentPage);
 		    	$('#btnList').trigger('click');
 			});
 			$('#btnListBack').click(function(){
 				console.log('btnListFront click');
-		    	let currentPage = $('#currentPage').val();
 		    	currentPage++;
-		    	$('#currentPage').val(currentPage);
 		    	$('#btnList').trigger('click');
 			});
 			
 		    // 멤버 목록
 		    $('#btnList').click(function(){
 		    	console.log('btnList click');
-		    	
-		    	let currentPage = $('#currentPage').val();
 		    	
 		    	$.post({
 		        	url : '/getMembers',
@@ -199,8 +194,6 @@
         </tbody>
     </table>
     
-    
-    <input id="currentPage" type="hidden" value="1">
     <button type="button" id="btnListFront">이전</button>
     <button type="button" id="btnListBack">다음</button>
     
