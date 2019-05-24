@@ -74,47 +74,65 @@
 		    	let nameVal = $('#name').val();
 		    	let ageVal = $('#age').val();
 		    	let genderVal = $('#gender').val();
+
+	    		$('#helperId').text('')
+	    		$('#helperPw').text('')
+	    		$('#helperName').text('')
+	    		$('#helperAge').text('')
 				
 		    	// 유효성 검사 코드
 		    	if(idVal == ''){
-		    		$('#helper').text('ID가 입력되지 않았습니다.');
+		    		$('#helperId').text('ID가 입력되지 않았습니다.');
 		    	}
 		    	else if(/\W/.test(idVal)){
-		    		$('#helper').text('ID는 숫자와 영문 대소문자만 입력할 수 있습니다.');
+		    		$('#helperId').text('ID는 숫자와 영문 대소문자만 입력할 수 있습니다.');
+		    	}
+		    	else{
+		    		id = $('#id').val();
 		    	}
 		    	
-		    	else if(pwVal == ''){
-		    		$('#helper').text('PW가 입력되지 않았습니다.');
+		    	if(pwVal == ''){
+		    		$('#helperPw').text('PW가 입력되지 않았습니다.');
 		    	}
 		    	else if(/\W/.test(pwVal) || !(/\d/.test(pwVal) && /[a-zA-Z]/.test(pwVal))){
-		    		$('#helper').text('PW는 숫자와 영문 대소문자를 조합해 입력해야 합니다.');
+		    		$('#helperPw').text('PW는 숫자와 영문 대소문자를 조합해 입력해야 합니다.');
 		    	}
 		    	else if(pwVal.length < 4){
-	    			$('#helper').text('PW는 네자리 이상이어야 합니다.');
+	    			$('#helperPw').text('PW는 네자리 이상이어야 합니다.');
 	    		}
+		    	else{
+		    		pw = $('#pw').val();
+		    	}
 		    	
-		    	else if(nameVal == ''){
-		    		$('#helper').text('Name이 입력되지 않았습니다.');
+		    	if(nameVal == ''){
+		    		$('#helperName').text('Name이 입력되지 않았습니다.');
 		    	}
 		    	else if(!(!/[a-zA-Z]/.test(nameVal) || !/[가-힣]/.test(nameVal))){
-		    		$('#helper').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
+		    		$('#helperName').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
+		    	}
+		    	else{
+		    		name = $('#name').val();
 		    	}
 		    	
-		    	else if(ageVal == ''){
-		    		$('#helper').text('Age가 입력되지 않았습니다.');
+		    	if(ageVal == ''){
+		    		$('#helperAge').text('Age가 입력되지 않았습니다.');
 		    	}
 		    	else if(/\D/.test(ageVal)){
-		    		$('#helper').text('Age는 숫자만 입력할 수 있습니다.');
+		    		$('#helperAge').text('Age는 숫자만 입력할 수 있습니다.');
+		    	}
+		    	else{
+		    		age = $('#age').val();
 		    	}
 		    	
-		    	else{
+		    	gender = $('#gender').val();
+		    	
+		    	/* else{
 		    		id = $('#id').val();
 		    		pw = $('#pw').val();
 		    		name = $('#name').val();
 		    		age = $('#age').val();
 		    		gender = $('#gender').val();
-		    		$('#helper').text('')
-		    	}
+		    	} */
 		        
 		    	$.post({
 		        	url : '/addMember',
@@ -161,46 +179,56 @@
 		    	let ageVal = $('#age').val();
 		    	let genderVal = $('#gender').val();
 				
+		    	$('#helperId').text('')
+	    		$('#helperPw').text('')
+	    		$('#helperName').text('')
+	    		$('#helperAge').text('')
+				
 		    	// 유효성 검사 코드
 		    	if(idVal == ''){
-		    		$('#helper').text('ID가 입력되지 않았습니다.');
+		    		$('#helperId').text('ID가 입력되지 않았습니다.');
 		    	}
 		    	else if(/\W/.test(idVal)){
-		    		$('#helper').text('ID는 숫자와 영문 대소문자만 입력할 수 있습니다.');
+		    		$('#helperId').text('ID는 숫자와 영문 대소문자만 입력할 수 있습니다.');
 		    	}
-		    	
-		    	else if(pwVal == ''){
-		    		$('#helper').text('PW가 입력되지 않았습니다.');
-		    	}
-		    	else if(/\W/.test(pwVal) || !(/\d/.test(pwVal) && /[a-zA-Z]/.test(pwVal))){
-		    		$('#helper').text('PW는 숫자와 영문 대소문자를 조합해 입력해야 합니다.');
-		    	}
-		    	else if(pwVal.length < 4){
-	    			$('#helper').text('PW는 네자리 이상이어야 합니다.');
-	    		}
-		    	
-		    	else if(nameVal == ''){
-		    		$('#helper').text('Name이 입력되지 않았습니다.');
-		    	}
-		    	else if(!(!/[a-zA-Z]/.test(nameVal) || !/[가-힣]/.test(nameVal))){
-		    		$('#helper').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
-		    	}
-		    	
-		    	else if(ageVal == ''){
-		    		$('#helper').text('Age가 입력되지 않았습니다.');
-		    	}
-		    	else if(/\D/.test(ageVal)){
-		    		$('#helper').text('Age는 숫자만 입력할 수 있습니다.');
-		    	}
-		    	
 		    	else{
 		    		id = $('#id').val();
-		    		pw = $('#pw').val();
-		    		name = $('#name').val();
-		    		age = $('#age').val();
-		    		gender = $('#gender').val();
-		    		$('#helper').text('')
 		    	}
+		    	
+		    	if(pwVal == ''){
+		    		$('#helperPw').text('PW가 입력되지 않았습니다.');
+		    	}
+		    	else if(/\W/.test(pwVal) || !(/\d/.test(pwVal) && /[a-zA-Z]/.test(pwVal))){
+		    		$('#helperPw').text('PW는 숫자와 영문 대소문자를 조합해 입력해야 합니다.');
+		    	}
+		    	else if(pwVal.length < 4){
+	    			$('#helperPw').text('PW는 네자리 이상이어야 합니다.');
+	    		}
+		    	else{
+		    		pw = $('#pw').val();
+		    	}
+		    	
+		    	if(nameVal == ''){
+		    		$('#helperName').text('Name이 입력되지 않았습니다.');
+		    	}
+		    	else if(!(!/[a-zA-Z]/.test(nameVal) || !/[가-힣]/.test(nameVal))){
+		    		$('#helperName').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
+		    	}
+		    	else{
+		    		name = $('#name').val();
+		    	}
+		    	
+		    	if(ageVal == ''){
+		    		$('#helperAge').text('Age가 입력되지 않았습니다.');
+		    	}
+		    	else if(/\D/.test(ageVal)){
+		    		$('#helperAge').text('Age는 숫자만 입력할 수 있습니다.');
+		    	}
+		    	else{
+		    		age = $('#age').val();
+		    	}
+		    	
+		    	gender = $('#gender').val();
 		    	
 		    	$.post({
 		        	url : '/modifyMember',
@@ -247,7 +275,10 @@
         </tbody>
     </table>
     
-    <div><span id="helper"></span></div>
+    <div><span id="helperId"></span></div>
+    <div><span id="helperPw"></span></div>
+    <div><span id="helperName"></span></div>
+    <div><span id="helperAge"></span></div>
  	
     <button type="button" id="btnRemove">remove</button>
     
