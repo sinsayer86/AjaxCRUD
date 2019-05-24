@@ -69,18 +69,51 @@
 		    	let age = null;
 		    	let gender = null;
 		    	
+		    	let idVal = $('#id').val();
+		    	let pwVal = $('#pw').val();
+		    	let nameVal = $('#name').val();
+		    	let ageVal = $('#age').val();
+		    	let genderVal = $('#gender').val();
+				
 		    	// 유효성 검사 코드
-		    	if($('#id').val() != '' && $('#pw').val() != '' && $('#name').val() != '' && $('#age').val() != '' && $('#gender').val() != '') {
+		    	if(idVal == ''){
+		    		$('#helper').text('ID가 입력되지 않았습니다.');
+		    	}
+		    	else if(/\W/.test(idVal)){
+		    		$('#helper').text('ID는 숫자와 영문 대소문자만 입력할 수 있습니다.');
+		    	}
+		    	
+		    	else if(pwVal == ''){
+		    		$('#helper').text('PW가 입력되지 않았습니다.');
+		    	}
+		    	else if(/\W/.test(pwVal) || !(/\d/.test(pwVal) && /[a-zA-Z]/.test(pwVal))){
+		    		$('#helper').text('PW는 숫자와 영문 대소문자를 조합해 입력해야 합니다.');
+		    	}
+		    	else if(pwVal.length < 4){
+	    			$('#helper').text('PW는 네자리 이상이어야 합니다.');
+	    		}
+		    	
+		    	else if(nameVal == ''){
+		    		$('#helper').text('Name이 입력되지 않았습니다.');
+		    	}
+		    	else if(!(!/[a-zA-Z]/.test(nameVal) || !/[가-힣]/.test(nameVal))){
+		    		$('#helper').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
+		    	}
+		    	
+		    	else if(ageVal == ''){
+		    		$('#helper').text('Age가 입력되지 않았습니다.');
+		    	}
+		    	else if(/\D/.test(ageVal)){
+		    		$('#helper').text('Age는 숫자만 입력할 수 있습니다.');
+		    	}
+		    	
+		    	else{
 		    		id = $('#id').val();
 		    		pw = $('#pw').val();
 		    		name = $('#name').val();
 		    		age = $('#age').val();
 		    		gender = $('#gender').val();
 		    		$('#helper').text('')
-		    	}
-		    	else {
-		    		$('#helper').text('입력되지 않은 데이터가 있습니다.')
-		    		//alert('입력되지 않은 데이터가 있습니다.');
 		    	}
 		        
 		    	$.post({
@@ -123,17 +156,28 @@
 		    	let gender = null;
 		    	
 		    	// 유효성 검사 코드
-		    	if($('#id').val() != '' && $('#pw').val() != '' && $('#name').val() != '' && $('#age').val() != '' && $('#gender').val() != '') {
+		    	if($('#id').val() == ''){
+		    		$('#helper').text('ID가 입력되지 않았습니다.');
+		    	}
+		    	else if($('#pw').val() == ''){
+		    		$('#helper').text('PW가 입력되지 않았습니다.');
+		    	}
+		    	else if($('#name').val() == ''){
+		    		$('#helper').text('Name이 입력되지 않았습니다.');
+		    	}
+		    	else if($('#age').val() == ''){
+		    		$('#helper').text('Age가 입력되지 않았습니다.');
+		    	}
+		    	else if($('#gender').val() == ''){
+		    		$('#helper').text('Gender가 입력되지 않았습니다.');
+		    	}
+		    	else{
 		    		id = $('#id').val();
 		    		pw = $('#pw').val();
 		    		name = $('#name').val();
 		    		age = $('#age').val();
 		    		gender = $('#gender').val();
 		    		$('#helper').text('')
-		    	}
-		    	else {
-		    		$('#helper').text('입력되지 않은 데이터가 있습니다.')
-		    		//alert('입력되지 않은 데이터가 있습니다.');
 		    	}
 		    	
 		    	$.post({
