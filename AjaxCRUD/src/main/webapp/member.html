@@ -139,6 +139,11 @@
 				        	data:{'id':id, 'pw':pw, 'name':name, 'age':age, 'gender':gender},
 					    	success:function(){
 				                $('#btnList').trigger('click'); //성공 시 btnList버튼 대신 클릭
+				                $('#id').val('');
+						    	$('#pw').val('');
+						    	$('#name').val('');
+						    	$('#age').val('');
+						    	$('#gender').val('');
 				            }
 				        });
 		        	}
@@ -190,10 +195,10 @@
 		    	let ageVal = $('#age').val();
 		    	let genderVal = $('#gender').val();
 				
-		    	$('#helperId').text('')
-	    		$('#helperPw').text('')
-	    		$('#helperName').text('')
-	    		$('#helperAge').text('')
+		    	$('#helperId').text('');
+	    		$('#helperPw').text('');
+	    		$('#helperName').text('');
+	    		$('#helperAge').text('');
 				
 		    	$.post({
 	    			url : '/getMemberId',
@@ -254,11 +259,15 @@
 				        	data:{'id':id, 'pw':pw, 'name':name, 'age':age, 'gender':gender},
 					    	success:function(){
 				                $('#btnList').trigger('click'); //성공 시 btnList버튼 대신 클릭
+				                $('#id').val('');
+						    	$('#pw').val('');
+						    	$('#name').val('');
+						    	$('#age').val('');
+						    	$('#gender').val('');
 				            }
 				        });
 		        	}
 	    		});
-		    	
 		    });
 		    
 		    $('#btnList').trigger('click');
