@@ -39,6 +39,7 @@ public class MemberService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("currentPage", currentPage);
+		map.put("rowPerPage", rowPerPage);
 		map.put("lastPage", lastPage);
 		map.put("list", list);
 		

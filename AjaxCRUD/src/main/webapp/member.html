@@ -2,8 +2,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<title>Member</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script>
 		let currentPage = 1;
 		
@@ -39,6 +42,7 @@
 		                    $('#list').append('<td>'+item.gender+'</td>');
 		                    $('#list').append('</tr>');
 		                });
+		                
 		                if(data.currentPage <= 1 && data.lastPage > 1){
 		                	$('#btnListFront').hide();
 		                	$('#btnListBack').show();
@@ -48,10 +52,18 @@
 		                	$('#btnListBack').show();
 		                }
 		                else if(data.currentPage >= data.lastPage && data.lastPage > 1){
+			                for(i = 0; i <= data.lastPage%data.rowPerPage; i++){
+			                	console.log(i);
+		                		$('#list').append('<tr><td colspan="6" height="43"> </td></tr>');
+		                	}
 		                	$('#btnListFront').show();
 		                	$('#btnListBack').hide();
 		                }
 		                else{
+		                	for(i = 0; i <= data.lastPage%data.rowPerPage; i++){
+			                	console.log(i);
+		                		$('#list').append('<tr><td colspan="6" height="43"> </td></tr>');
+		                	}
 		                	$('#btnListFront').hide();
 		                	$('#btnListBack').hide();
 		                }
@@ -67,13 +79,12 @@
 		    	let pw = null;
 		    	let name = null;
 		    	let age = null;
-		    	let gender = null;
+		    	let gender = $('#gender').val();
 		    	
 		    	let idVal = $('#id').val();
 		    	let pwVal = $('#pw').val();
 		    	let nameVal = $('#name').val();
 		    	let ageVal = $('#age').val();
-		    	let genderVal = $('#gender').val();
 
 	    		$('#helperId').text('')
 	    		$('#helperPw').text('')
@@ -101,7 +112,7 @@
 				    		$('#helperId').text('ID는 4자 이상 20자 이하의 숫자와 영문 대소문자만 입력할 수 있습니다. 첫번째 문자는 영문 대소문자로 입력해야 합니다.');
 		        		}
 				    	else{
-				    		id = $('#id').val();
+				    		id = idVal;
 				    	}
 				    	
 		        		if(pwVal == ''){
@@ -111,7 +122,7 @@
 				    		$('#helperPw').text('PW는 6자 이상 20자 이하의 숫자와 영문 대소문자의 조합으로만 입력할 수 있습니다.');
 		        		}
 				    	else{
-		        			pw = $('#pw').val();
+		        			pw = pwVal;
 				    	}
 				    	
 		        		if(nameVal == ''){
@@ -121,7 +132,7 @@
 				    		$('#helperName').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
 		        		}
 				    	else{
-				    		name = $('#name').val();
+				    		name = nameVal;
 				    	}
 				    	
 		        		if(ageVal == ''){
@@ -131,10 +142,8 @@
 				    		$('#helperAge').text('Age는 10 ~ 159 의 숫자만 입력할 수 있습니다.');
 		        		}
 				    	else{
-				    		age = $('#age').val();
+				    		age = ageVal;
 				    	}
-				    	
-				    	gender = $('#gender').val();
 				    	
 				    	$.post({
 				        	url : '/addMember',
@@ -189,13 +198,12 @@
 		    	let pw = null;
 		    	let name = null;
 		    	let age = null;
-		    	let gender = null;
+		    	let gender = $('#gender').val();
 		    	
 		    	let idVal = $('#id').val();
 		    	let pwVal = $('#pw').val();
 		    	let nameVal = $('#name').val();
 		    	let ageVal = $('#age').val();
-		    	let genderVal = $('#gender').val();
 				
 		    	$('#helperId').text('');
 	    		$('#helperPw').text('');
@@ -223,7 +231,7 @@
 				    		$('#helperId').text('ID는 4자 이상 20자 이하의 숫자와 영문 대소문자만 입력할 수 있습니다. 첫번째 문자는 영문 대소문자로 입력해야 합니다.');
 		        		}
 				    	else{
-				    		id = $('#id').val();
+				    		id = idVal;
 				    	}
 				    	
 		        		if(pwVal == ''){
@@ -233,7 +241,7 @@
 				    		$('#helperPw').text('PW는 6자 이상 20자 이하의 숫자와 영문 대소문자의 조합으로만 입력할 수 있습니다.');
 		        		}
 				    	else{
-		        			pw = $('#pw').val();
+		        			pw = pwVal;
 				    	}
 				    	
 		        		if(nameVal == ''){
@@ -243,7 +251,7 @@
 				    		$('#helperName').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
 		        		}
 				    	else{
-				    		name = $('#name').val();
+				    		name = nameVal;
 				    	}
 				    	
 		        		if(ageVal == ''){
@@ -253,10 +261,8 @@
 				    		$('#helperAge').text('Age는 10 ~ 159 의 숫자만 입력할 수 있습니다.');
 		        		}
 				    	else{
-				    		age = $('#age').val();
+				    		age = ageVal;
 				    	}
-				    	
-				    	gender = $('#gender').val();
 				    	
 				    	$.post({
 				        	url : '/modifyMember',
@@ -279,62 +285,104 @@
 	</script>
 </head>
 <body>
-	<h1>Member</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>pw</th>
-                <th>name</th>
-                <th>age</th>
-                <th>gender</th>
-                <th>추가</th>
-                <th>수정</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><input type="text" id="id"></td>
-                <td><input type="password" id="pw"></td>
-                <td><input type="text" id="name"></td>
-                <td><input type="text" id="age"></td>
-                <td>
-                    <select id="gender">
-                        <option value="Male">남</option>
-                        <option value="Female">여</option>
-                    </select>
-                </td>
-                <td><button type="button" id="btnAdd">add</button></td>
-                <td><button type="button" id="btnModify">modify</button></td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <div><span id="helperId"></span></div>
-    <div><span id="helperPw"></span></div>
-    <div><span id="helperName"></span></div>
-    <div><span id="helperAge"></span></div>
- 	
-    <button type="button" id="btnRemove">remove</button>
-    
-    <button type="button" id="btnList">회원리스트</button>
-    <table border="1">
-        <thead>
-            <tr>
-                <th></th>
-                <th>id</th>
-                <th>pw</th>
-                <th>name</th>
-                <th>age</th>
-                <th>gender</th>
-            </tr>
-        </thead>
-        <tbody id="list">
-        </tbody>
-    </table>
-    
-    <button type="button" id="btnListFront">이전</button>
-    <button type="button" id="btnListBack">다음</button>
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1>Member</h1>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+			    <table class="table">
+			        <tbody>
+			            <tr>
+			            	<th>ID</th>
+			                <td>
+				                <input type="text" id="id" class="form-control">
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th>PW</th>
+			                <td>
+				                <input type="password" id="pw" class="form-control">
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th>Name</th>
+			                <td>
+				                <input type="text" id="name" class="form-control">
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th>Age</th>
+			                <td>
+				                <input type="text" id="age" class="form-control">
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th>Gender</th>
+			                <td>
+			                    <select id="gender" class="form-control">
+			                        <option value="Male">남</option>
+			                        <option value="Female">여</option>
+			                    </select>
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th>추가/수정</th>
+			                <td>
+			                	<button type="button" id="btnAdd" class="btn btn-primary">add</button>
+			                	<button type="button" id="btnModify" class="btn btn-primary">modify</button>
+			                </td>
+			            </tr>
+			            <tr>
+			            	<td colspan="2">
+				                <div><span id="helperId" class="text-primary"></span></div>
+				                <div><span id="helperPw" class="text-primary"></span></div>
+				                <div><span id="helperName" class="text-primary"></span></div>
+				                <div><span id="helperAge" class="text-primary"></span></div>
+				            </td>
+			            </tr>
+			        </tbody>
+			    </table>
+		    </div>
+		
+		    <div class="col-sm-6">
+			    <table class="table table-dark">
+			        <thead>
+			            <tr>
+			                <th></th>
+			                <th>id</th>
+			                <th>pw</th>
+			                <th>name</th>
+			                <th>age</th>
+			                <th>gender</th>
+			            </tr>
+			        </thead>
+			        <tbody id="list">
+			        </tbody>
+			        <tfoot>
+			        	<tr>
+			        		<td colspan="6">
+					    		<div class="row">
+								    <div class="col-sm-6" align="left">
+									    <button type="button" id="btnListFront" class="btn btn-primary">이전</button>
+									    <button type="button" id="btnListBack" class="btn btn-primary">다음</button>
+								    </div>
+								    
+								    <div class="col-sm-6" align="right">
+									    <button type="button" id="btnRemove" class="btn btn-primary">remove</button>
+									    <button type="button" id="btnList" class="btn btn-primary">회원리스트</button>
+								    </div>
+					    		</div>
+			        		</td>
+			        	</tr>
+					</tfoot>
+			    </table>
+			    
+		    </div>
+		</div>
+	</div>
     
 </body>
 </html>
