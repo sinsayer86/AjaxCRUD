@@ -15,6 +15,12 @@ import cafe.jjdev.AjaxCRUD.member.vo.Member;
 @Transactional
 public class MemberService {
 	@Autowired MemberMapper memberMapper;
+	
+	// 멤버 아이디
+	public String getMemberId(String id) {
+		return memberMapper.selectMemberId(id);
+	}
+	
 	// 멤버 목록
 	public Map<String, Object> getMembers(int currentPage) {
 		int rowPerPage = 10;

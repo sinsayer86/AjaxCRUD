@@ -1,6 +1,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cafe.jjdev.AjaxCRUD.member.mapper.MemberMapper">
+	<!-- ID확인 쿼리 -->
+	<select id="selectMemberId" parameterType="String" resultType="String">
+		SELECT id
+		FROM member
+		WHERE id = #{id}
+	</select>
+
 	<!-- 총 멤버 수 쿼리 -->
 	<select id="selectMemberCount" resultType="Integer">
 		SELECT COUNT(*)

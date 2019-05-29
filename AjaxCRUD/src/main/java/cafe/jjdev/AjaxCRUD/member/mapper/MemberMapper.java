@@ -8,6 +8,7 @@ import cafe.jjdev.AjaxCRUD.member.vo.Member;
 
 @Mapper
 public interface MemberMapper {
+	public String selectMemberId(String id); //멤버 아이디
 	public int selectMemberCount(); //총 멤버 수
 	public List<Member> selectMemberList(int beginRow, int rowPerPage); //멤버 목록
 	public int insertMember(Member member); //멤버 추가

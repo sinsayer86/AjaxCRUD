@@ -79,52 +79,70 @@
 	    		$('#helperPw').text('')
 	    		$('#helperName').text('')
 	    		$('#helperAge').text('')
-				
-		    	// 유효성 검사 코드
-		    	if(idVal == ''){
-		    		$('#helperId').text('ID가 입력되지 않았습니다.');
-		    	}
-		    	else if(/\W/.test(idVal)){
-		    		$('#helperId').text('ID는 숫자와 영문 대소문자만 입력할 수 있습니다.');
-		    	}
-		    	else{
-		    		id = $('#id').val();
-		    	}
-		    	
-		    	if(pwVal == ''){
-		    		$('#helperPw').text('PW가 입력되지 않았습니다.');
-		    	}
-		    	else if(/\W/.test(pwVal) || !(/\d/.test(pwVal) && /[a-zA-Z]/.test(pwVal))){
-		    		$('#helperPw').text('PW는 숫자와 영문 대소문자를 조합해 입력해야 합니다.');
-		    	}
-		    	else if(pwVal.length < 4){
-	    			$('#helperPw').text('PW는 네자리 이상이어야 합니다.');
-	    		}
-		    	else{
-		    		pw = $('#pw').val();
-		    	}
-		    	
-		    	if(nameVal == ''){
-		    		$('#helperName').text('Name이 입력되지 않았습니다.');
-		    	}
-		    	else if(!(!/[a-zA-Z]/.test(nameVal) || !/[가-힣]/.test(nameVal))){
-		    		$('#helperName').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
-		    	}
-		    	else{
-		    		name = $('#name').val();
-		    	}
-		    	
-		    	if(ageVal == ''){
-		    		$('#helperAge').text('Age가 입력되지 않았습니다.');
-		    	}
-		    	else if(/\D/.test(ageVal)){
-		    		$('#helperAge').text('Age는 숫자만 입력할 수 있습니다.');
-		    	}
-		    	else{
-		    		age = $('#age').val();
-		    	}
-		    	
-		    	gender = $('#gender').val();
+	    		
+	    		$.post({
+	    			url : '/getMemberId',
+		        	data : {'id':idVal},
+		        	success:function(data){
+		        		console.log(data);
+		        		// 유효성 검사 코드
+				    	if(idVal == ''){
+				    		$('#helperId').text('ID가 입력되지 않았습니다.');
+				    	}
+				    	else if(/\W/.test(idVal)){
+				    		$('#helperId').text('ID는 숫자와 영문 대소문자만 입력할 수 있습니다.');
+				    	}
+				    	else if(data){
+				    		$('#helperId').text('이미 존재하는 ID입니다.');
+				    	}
+				    	else{
+				    		id = $('#id').val();
+				    	}
+				    	
+				    	if(pwVal == ''){
+				    		$('#helperPw').text('PW가 입력되지 않았습니다.');
+				    	}
+				    	else if(/\W/.test(pwVal) || !(/\d/.test(pwVal) && /[a-zA-Z]/.test(pwVal))){
+				    		$('#helperPw').text('PW는 숫자와 영문 대소문자를 조합해 입력해야 합니다.');
+				    	}
+				    	else if(pwVal.length < 4){
+			    			$('#helperPw').text('PW는 네자리 이상이어야 합니다.');
+			    		}
+				    	else{
+				    		pw = $('#pw').val();
+				    	}
+				    	
+				    	if(nameVal == ''){
+				    		$('#helperName').text('Name이 입력되지 않았습니다.');
+				    	}
+				    	else if(!(!/[a-zA-Z]/.test(nameVal) || !/[가-힣]/.test(nameVal))){
+				    		$('#helperName').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
+				    	}
+				    	else{
+				    		name = $('#name').val();
+				    	}
+				    	
+				    	if(ageVal == ''){
+				    		$('#helperAge').text('Age가 입력되지 않았습니다.');
+				    	}
+				    	else if(/\D/.test(ageVal)){
+				    		$('#helperAge').text('Age는 숫자만 입력할 수 있습니다.');
+				    	}
+				    	else{
+				    		age = $('#age').val();
+				    	}
+				    	
+				    	gender = $('#gender').val();
+				    	
+				    	$.post({
+				        	url : '/addMember',
+				        	data:{'id':id, 'pw':pw, 'name':name, 'age':age, 'gender':gender},
+					    	success:function(){
+				                $('#btnList').trigger('click'); //성공 시 btnList버튼 대신 클릭
+				            }
+				        });
+		        	}
+	    		});
 		    	
 		    	/* else{
 		    		id = $('#id').val();
@@ -133,14 +151,7 @@
 		    		age = $('#age').val();
 		    		gender = $('#gender').val();
 		    	} */
-		        
-		    	$.post({
-		        	url : '/addMember',
-		        	data:{'id':id, 'pw':pw, 'name':name, 'age':age, 'gender':gender},
-			    	success:function(){
-		                $('#btnList').trigger('click'); //성공 시 btnList버튼 대신 클릭
-		            }
-		        });
+		    	
 		    });
 
 		    // 멤버 삭제
@@ -184,59 +195,70 @@
 	    		$('#helperName').text('')
 	    		$('#helperAge').text('')
 				
-		    	// 유효성 검사 코드
-		    	if(idVal == ''){
-		    		$('#helperId').text('ID가 입력되지 않았습니다.');
-		    	}
-		    	else if(/\W/.test(idVal)){
-		    		$('#helperId').text('ID는 숫자와 영문 대소문자만 입력할 수 있습니다.');
-		    	}
-		    	else{
-		    		id = $('#id').val();
-		    	}
-		    	
-		    	if(pwVal == ''){
-		    		$('#helperPw').text('PW가 입력되지 않았습니다.');
-		    	}
-		    	else if(/\W/.test(pwVal) || !(/\d/.test(pwVal) && /[a-zA-Z]/.test(pwVal))){
-		    		$('#helperPw').text('PW는 숫자와 영문 대소문자를 조합해 입력해야 합니다.');
-		    	}
-		    	else if(pwVal.length < 4){
-	    			$('#helperPw').text('PW는 네자리 이상이어야 합니다.');
-	    		}
-		    	else{
-		    		pw = $('#pw').val();
-		    	}
-		    	
-		    	if(nameVal == ''){
-		    		$('#helperName').text('Name이 입력되지 않았습니다.');
-		    	}
-		    	else if(!(!/[a-zA-Z]/.test(nameVal) || !/[가-힣]/.test(nameVal))){
-		    		$('#helperName').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
-		    	}
-		    	else{
-		    		name = $('#name').val();
-		    	}
-		    	
-		    	if(ageVal == ''){
-		    		$('#helperAge').text('Age가 입력되지 않았습니다.');
-		    	}
-		    	else if(/\D/.test(ageVal)){
-		    		$('#helperAge').text('Age는 숫자만 입력할 수 있습니다.');
-		    	}
-		    	else{
-		    		age = $('#age').val();
-		    	}
-		    	
-		    	gender = $('#gender').val();
-		    	
 		    	$.post({
-		        	url : '/modifyMember',
-		        	data:{'id':id, 'pw':pw, 'name':name, 'age':age, 'gender':gender},
-		    		success:function(){
-		                $('#btnList').trigger('click'); //성공 시 btnList버튼 대신 클릭
-		            }
-		        });
+	    			url : '/getMemberId',
+		        	data : {'id':idVal},
+		        	success:function(data){
+		        		console.log(data);
+		        		// 유효성 검사 코드
+				    	if(idVal == ''){
+				    		$('#helperId').text('ID가 입력되지 않았습니다.');
+				    	}
+				    	else if(/\W/.test(idVal)){
+				    		$('#helperId').text('ID는 숫자와 영문 대소문자만 입력할 수 있습니다.');
+				    	}
+				    	else if(!data){
+				    		$('#helperId').text('존재하지 않는 ID입니다.');
+				    	}
+				    	else{
+				    		id = $('#id').val();
+				    	}
+				    	
+				    	if(pwVal == ''){
+				    		$('#helperPw').text('PW가 입력되지 않았습니다.');
+				    	}
+				    	else if(/\W/.test(pwVal) || !(/\d/.test(pwVal) && /[a-zA-Z]/.test(pwVal))){
+				    		$('#helperPw').text('PW는 숫자와 영문 대소문자를 조합해 입력해야 합니다.');
+				    	}
+				    	else if(pwVal.length < 4){
+			    			$('#helperPw').text('PW는 네자리 이상이어야 합니다.');
+			    		}
+				    	else{
+				    		pw = $('#pw').val();
+				    	}
+				    	
+				    	if(nameVal == ''){
+				    		$('#helperName').text('Name이 입력되지 않았습니다.');
+				    	}
+				    	else if(!(!/[a-zA-Z]/.test(nameVal) || !/[가-힣]/.test(nameVal))){
+				    		$('#helperName').text('Name은 영문 대소문자 혹은 한글만 입력할 수 있습니다.');
+				    	}
+				    	else{
+				    		name = $('#name').val();
+				    	}
+				    	
+				    	if(ageVal == ''){
+				    		$('#helperAge').text('Age가 입력되지 않았습니다.');
+				    	}
+				    	else if(/\D/.test(ageVal)){
+				    		$('#helperAge').text('Age는 숫자만 입력할 수 있습니다.');
+				    	}
+				    	else{
+				    		age = $('#age').val();
+				    	}
+				    	
+				    	gender = $('#gender').val();
+				    	
+				    	$.post({
+				        	url : '/modifyMember',
+				        	data:{'id':id, 'pw':pw, 'name':name, 'age':age, 'gender':gender},
+					    	success:function(){
+				                $('#btnList').trigger('click'); //성공 시 btnList버튼 대신 클릭
+				            }
+				        });
+		        	}
+	    		});
+		    	
 		    });
 		    
 		    $('#btnList').trigger('click');

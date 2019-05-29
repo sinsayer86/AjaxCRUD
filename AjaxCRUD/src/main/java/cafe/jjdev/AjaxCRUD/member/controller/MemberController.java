@@ -3,7 +3,6 @@ package cafe.jjdev.AjaxCRUD.member.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +13,13 @@ import cafe.jjdev.AjaxCRUD.member.vo.Member;
 @RestController
 public class MemberController {
 	@Autowired MemberService memberService;
+	
+	// 멤버 ID
+	@PostMapping("/getMemberId")
+	public String getMemberId(String id) {
+		return memberService.getMemberId(id);
+	}
+	
 	
 	// 멤버 목록
 	@PostMapping("/getMembers")
