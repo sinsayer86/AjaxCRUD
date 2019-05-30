@@ -25,13 +25,13 @@ public class MemberService {
 	public Map<String, Object> getMembers(int currentPage) {
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
-		
-		int lastPage = memberMapper.selectMemberCount(); //총 멤버 수
-		if(lastPage % rowPerPage == 0) {
-			lastPage = lastPage / rowPerPage;
+		int rowCount = memberMapper.selectMemberCount(); //총 멤버 수
+		int lastPage = 0;
+		if(rowCount % rowPerPage == 0) {
+			lastPage = rowCount / rowPerPage;
 		}
 		else {
-			lastPage = lastPage / rowPerPage + 1;
+			lastPage = rowCount / rowPerPage + 1;
 		}
 		
 		List<Member> list = memberMapper.selectMemberList(beginRow, rowPerPage); //멤버 목록
@@ -41,6 +41,7 @@ public class MemberService {
 		map.put("currentPage", currentPage);
 		map.put("rowPerPage", rowPerPage);
 		map.put("lastPage", lastPage);
+		map.put("rowCount", rowCount);
 		map.put("list", list);
 		
 		return map;

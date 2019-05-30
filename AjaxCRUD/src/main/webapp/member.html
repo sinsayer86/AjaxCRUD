@@ -52,7 +52,7 @@
 		                	$('#btnListBack').show();
 		                }
 		                else if(data.currentPage >= data.lastPage && data.lastPage > 1){
-			                for(i = 0; i <= data.lastPage%data.rowPerPage; i++){
+			                for(i = 0; i <= data.rowPerPage-(data.rowCount%data.rowPerPage); i++){
 			                	console.log(i);
 		                		$('#list').append('<tr><td colspan="6" height="43"> </td></tr>');
 		                	}
@@ -60,7 +60,7 @@
 		                	$('#btnListBack').hide();
 		                }
 		                else{
-		                	for(i = 0; i <= data.lastPage%data.rowPerPage; i++){
+		                	for(i = 0; i <= data.rowPerPage-(data.rowCount%data.rowPerPage); i++){
 			                	console.log(i);
 		                		$('#list').append('<tr><td colspan="6" height="43"> </td></tr>');
 		                	}
